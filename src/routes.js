@@ -1,12 +1,16 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useContext } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
+import ApplicationContext from "./context/ApplicationContext";
 import LandingPage from "./pages/LandingPage";
 import CallbackPage from "./pages/CallbackPage";
+import HomePage from "./pages/HomePage";
 
 const ProtectedRoute = ({ component: Component }) => {
-  // Navigate({ to: "/" });
-
+  const { userDetails } = useContext(ApplicationContext);
+  if (!userDetails) {
+    Navigate({ to: "/" });
+  }
   return <Component />;
 };
 
@@ -16,10 +20,10 @@ const RoutesComponent = () => {
       <Suspense fallback={<div>Loading Application!</div>}>
         <Routes>
           <Route path="/" element={<LandingPage />} />
+          <Route path="/callback" element={<CallbackPage />} />
           <Route
-            path="/callback"
-            // element={<ProtectedRoute component={<CallbackPage />} />}
-            element={<CallbackPage />}
+            path="/Home"
+            element={<ProtectedRoute component={HomePage} />}
           />
         </Routes>
       </Suspense>

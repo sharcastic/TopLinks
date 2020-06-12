@@ -1,12 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Button, CircularProgress } from "@material-ui/core";
+import { useNavigate } from "react-router-dom";
 
 import { popupWindow, observeWindow } from "../utils/commonMethods";
+import { AUTHENTICATE_URL } from "../utils/constants";
+import { getRequestToken } from "../utils/network";
+import ApplicationContext from "../context/ApplicationContext";
 import { ReactComponent as TwitterIcon } from "../assets/twitter-icon.svg";
 
 import "../styles/LandingPage.scss";
 
 const LandingPage = () => {
+  const navigate = useNavigate();
+  const { userDetails, setUserInfo } = useContext(ApplicationContext);
+  debugger;
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState("");
 
@@ -14,19 +21,36 @@ const LandingPage = () => {
     setLoading(false);
   };
 
-  const onSignInClick = () => {
-    setLoading(true);
-    setStatus("Waiting for user authentication");
-    const popup = popupWindow(
-      `/callback?oauth_token=token&oauth_verifier=verified`,
-      "Twitter Sign In!"
-    );
-    observeWindow(popup, onPopupClosed);
-    window.onmessage = async ({ data: { type, data } }) => {
-      if (type === "authenticated") {
-        console.log(data);
+  const onSignInClick = async () => {
+    if (userDetails) {
+      navigate("/home");
+    } else {
+      setLoading(true);
+      setStatus("Requesting Token from Twitter!");
+      try {
+        const requestTokenData = await getRequestToken();
+        if (requestTokenData.oauth_callback_confirmed) {
+          setStatus("Waiting for user authentication");
+          const popup = popupWindow(
+            `${AUTHENTICATE_URL}?oauth_token=${requestTokenData.oauth_token}`,
+            "Twitter Sign In!"
+          );
+          observeWindow(popup, onPopupClosed);
+          window.onmessage = async ({ data: { type, data } }) => {
+            if (type === "authenticated") {
+              console.log(data);
+              setUserInfo(data);
+            }
+          };
+        }
+      } catch (err) {
+        console.log(err);
+        setStatus(
+          "Some Error occurred during RequestToken process, Please try again!"
+        );
+        setLoading(false);
       }
-    };
+    }
   };
   return (
     <div className="landing-page">
