@@ -6,6 +6,7 @@ import ApplicationContextProvider from "./context/ApplicationContextProvider";
 import Routes from "./routes";
 
 import "./styles/normalize.scss";
+import "./styles/index.scss";
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(

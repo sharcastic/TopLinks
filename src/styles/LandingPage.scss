@@ -1,0 +1,21 @@
+.landing-page {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+
+  .title {
+    font-weight: bolder;
+  }
+
+  .signin-button {
+    width: 150px;
+    height: 50px;
+    .twitter-icon {
+      fill: white;
+      margin-right: 10px;
+    }
+  }
+}

@@ -4,9 +4,9 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 
 const ProtectedRoute = ({ component: Component }) => {
-  Navigate({ to: "/" });
+  // Navigate({ to: "/" });
 
-  return null;
+  return <Component />;
 };
 
 const RoutesComponent = () => {
