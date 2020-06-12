@@ -2,6 +2,7 @@ import React, { Suspense } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import LandingPage from "./pages/LandingPage";
+import CallbackPage from "./pages/CallbackPage";
 
 const ProtectedRoute = ({ component: Component }) => {
   // Navigate({ to: "/" });
@@ -17,7 +18,8 @@ const RoutesComponent = () => {
           <Route path="/" element={<LandingPage />} />
           <Route
             path="/callback"
-            element={<ProtectedRoute component={<div>Callback page!</div>} />}
+            // element={<ProtectedRoute component={<CallbackPage />} />}
+            element={<CallbackPage />}
           />
         </Routes>
       </Suspense>

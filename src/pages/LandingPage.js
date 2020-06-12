@@ -3,15 +3,30 @@ import { Button, CircularProgress } from "@material-ui/core";
 
 import { popupWindow, observeWindow } from "../utils/commonMethods";
 import { ReactComponent as TwitterIcon } from "../assets/twitter-icon.svg";
+
 import "../styles/LandingPage.scss";
 
 const LandingPage = () => {
   const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState("");
+
+  const onPopupClosed = () => {
+    setLoading(false);
+  };
 
   const onSignInClick = () => {
     setLoading(true);
-    const popup = popupWindow("https://google.com", "Twitter Sign In!");
-    observeWindow(popup, () => setLoading(false));
+    setStatus("Waiting for user authentication");
+    const popup = popupWindow(
+      `/callback?oauth_token=token&oauth_verifier=verified`,
+      "Twitter Sign In!"
+    );
+    observeWindow(popup, onPopupClosed);
+    window.onmessage = async ({ data: { type, data } }) => {
+      if (type === "authenticated") {
+        console.log(data);
+      }
+    };
   };
   return (
     <div className="landing-page">
@@ -32,6 +47,7 @@ const LandingPage = () => {
           </>
         )}
       </Button>
+      <div>{status}</div>
     </div>
   );
 };
