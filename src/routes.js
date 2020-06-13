@@ -5,13 +5,21 @@ import ApplicationContext from "./context/ApplicationContext";
 import LandingPage from "./pages/LandingPage";
 import CallbackPage from "./pages/CallbackPage";
 import HomePage from "./pages/HomePage";
+import Navbar from "./components/Navbar/Navbar";
 
 const ProtectedRoute = ({ component: Component }) => {
   const { userDetails } = useContext(ApplicationContext);
   if (!userDetails) {
     Navigate({ to: "/" });
   }
-  return <Component />;
+  return (
+    <>
+      <Navbar />
+      <div className="page-content">
+        <Component />
+      </div>
+    </>
+  );
 };
 
 const RoutesComponent = () => {

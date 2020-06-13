@@ -2,6 +2,7 @@ import {
   CORS_BYPASS_URL,
   REQUEST_TOKEN_URL,
   ACCESS_TOKEN_URL,
+  mockTweets,
 } from "../utils/constants";
 import {
   getRequestTokenSignature,
@@ -43,4 +44,9 @@ export const getAccessToken = async (oauth_token, oauth_verifier) => {
   } catch (err) {
     throw err;
   }
+};
+
+export const getTweets = async () => {
+  const tweets = await new Promise((resolve) => resolve(mockTweets));
+  return tweets;
 };
