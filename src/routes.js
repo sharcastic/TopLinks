@@ -6,6 +6,7 @@ import LandingPage from "./pages/LandingPage";
 import CallbackPage from "./pages/CallbackPage";
 import HomePage from "./pages/HomePage";
 import Navbar from "./components/Navbar/Navbar";
+import HashtagPage from "./pages/HashtagPage";
 
 const ProtectedRoute = ({ component: Component }) => {
   const { userDetails } = useContext(ApplicationContext);
@@ -32,6 +33,10 @@ const RoutesComponent = () => {
           <Route
             path="/Home"
             element={<ProtectedRoute component={HomePage} />}
+          />
+          <Route
+            path="/searchByHashtag"
+            element={<ProtectedRoute component={HashtagPage} />}
           />
         </Routes>
       </Suspense>

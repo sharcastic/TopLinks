@@ -1,0 +1,42 @@
+.hashtag-page {
+  display: flex;
+
+  .hashtag-search {
+    width: 50%;
+    margin-right: 20px;
+    .hashtag-search-title {
+      margin-bottom: 20px;
+    }
+  }
+
+  .hashtag-tweets {
+    margin: 0 20px;
+    width: 50%;
+    .result-tweets {
+      margin-top: 20px;
+    }
+  }
+
+  .search-subtitle {
+    margin: 20px 0;
+  }
+
+  .hashtag-search-results {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    .hashtag-item {
+      padding: 10px;
+      border: 1px solid;
+      border-radius: 5px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      &::after {
+        content: ">";
+        margin-right: 10px;
+      }
+    }
+  }
+}

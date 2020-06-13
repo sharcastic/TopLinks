@@ -1,0 +1,18 @@
+.tweet-item {
+  border: 1px solid rgb(7, 85, 158);
+  border-radius: 5px;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  .tweet-content {
+    flex-grow: 1;
+    margin-bottom: 10px;
+  }
+  .tweet-time {
+    align-self: flex-end;
+  }
+  .author-details {
+    margin-bottom: 10px;
+  }
+}

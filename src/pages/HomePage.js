@@ -1,43 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { CircularProgress, Button } from "@material-ui/core";
 
-import { getTweets } from "../utils/network";
+import ApplicationContext from "../context/ApplicationContext";
+import TweetComponent from "../components/TweetComponent/TweetComponent";
 import "../styles/HomePage.scss";
 
 const HomePage = () => {
-  const [loading, setLoading] = useState(true);
-  const [tweets, setTweets] = useState([]);
+  const { tweets, loadingTweets } = useContext(ApplicationContext);
 
-  useEffect(() => {
-    const retrieveTweets = async () => {
-      const tweetsResponse = await getTweets();
-      setTweets(tweetsResponse);
-      setLoading(false);
-    };
-
-    retrieveTweets();
-  }, []);
   return (
     <div className="home-page">
       <h2 className="home-title">Home Page!</h2>
-      {loading ? (
+      {loadingTweets ? (
         <CircularProgress />
       ) : (
         <div className="tweets-container">
-          {tweets.map((tweet) => {
-            const time = new Date(tweet.created_at);
-            return (
-              <div className="tweet-item" key={tweet.id}>
-                <div className="author-details">
-                  {tweet.user.name} - @{tweet.user.screen_name}
-                </div>
-                <div className="tweet-content">{tweet.full_text}</div>
-                <div className="tweet-time">
-                  {`Posted at ${time.getHours()}:${time.getMinutes()}`}
-                </div>
-              </div>
-            );
-          })}
+          {tweets.map((tweet) => (
+            <TweetComponent key={tweet.id} tweet={tweet} />
+          ))}
         </div>
       )}
       <Button className="reload-tweets" variant="contained" color="primary">
