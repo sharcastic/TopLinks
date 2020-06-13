@@ -7,6 +7,8 @@ import {
   CONSUMER_SECRET,
   REQUEST_TOKEN_URL,
   ACCESS_TOKEN_URL,
+  MAPTILER_ACCESS_TOKEN,
+  MAP_ID,
 } from "./constants";
 
 export const observeWindow = (popup, onClose) => {
@@ -106,3 +108,12 @@ export const processTokenResponse = (text) =>
     const [key, value] = i.split("=");
     return { ...acc, [key]: value };
   }, {});
+
+export const mapTilerProvider = (x, y, z, dpr) => {
+  return `https://api.maptiler.com/maps/${MAP_ID}/256/${z}/${x}/${y}${
+    dpr >= 2 ? "@2x" : ""
+  }.png?key=${MAPTILER_ACCESS_TOKEN}`;
+};
+
+export const getRandomCoordinates = (from = -180, to = 180, fixed = 3) =>
+  (Math.random() * (to - from) + from).toFixed(fixed) * 1;

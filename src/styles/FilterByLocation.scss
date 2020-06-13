@@ -1,0 +1,25 @@
+.filter-page {
+  .filter-page-content {
+    display: flex;
+    .map-container {
+      width: 70%;
+      .info {
+        margin-top: 30px;
+        display: flex;
+        flex-direction: column;
+        .button {
+          margin-top: 20px;
+        }
+      }
+    }
+    .filtered-tweets-container {
+      width: 30%;
+      padding-left: 30px;
+      .filtered-tweets {
+        .tweet-item {
+          margin-top: 20px;
+        }
+      }
+    }
+  }
+}

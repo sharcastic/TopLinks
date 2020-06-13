@@ -1,14 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import "./Navbar.scss";
+import { navbarItems } from "../../utils/constants";
 
-const navbarItems = [
-  { title: "Home", link: "/Home" },
-  { title: "Search Tweets By Hashtag", link: "/searchByHashtag" },
-  { title: "Filter Tweets By Location", link: "/Home" },
-  { title: "View Reports", link: "/Home" },
-];
+import "./Navbar.scss";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -22,8 +17,9 @@ const Navbar = () => {
       <ul className="nav-list">
         {navbarItems.map((item) => (
           <li
+            key={item.title}
             className="nav-item"
-            data-sendTo={item.link}
+            data-sendto={item.link}
             onClick={onNavItemClick}
           >
             {item.title}
