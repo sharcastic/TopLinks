@@ -1,0 +1,9 @@
+{
+  "name": "my-mongodb-api",
+  "version": 2,
+  "env": {
+    "MONGODB_URI": "@my-mongodb-uri",
+    "CONSUMER_KEY": "@consumer_key",
+    "CONSUMER_SECRET": "@consumer_secret"
+  }
+}

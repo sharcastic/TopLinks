@@ -4,12 +4,13 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.10.2",
-    "@nivo/bar": "^0.62.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "chart.js": "^2.9.3",
     "crypto-js": "^4.0.0",
+    "mongodb": "^3.5.9",
+    "mongoose": "^5.9.18",
     "node-sass": "^4.14.1",
     "pigeon-maps": "^0.15.0",
     "pigeon-marker": "^0.3.4",
@@ -19,7 +20,7 @@
     "react-router": "6.0.0-alpha.5",
     "react-router-dom": "6.0.0-alpha.5",
     "react-scripts": "3.4.1",
-    "recharts": "^1.8.5"
+    "twitter-lite": "^0.14.0"
   },
   "scripts": {
     "start": "react-scripts start",

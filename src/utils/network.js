@@ -46,7 +46,14 @@ export const getAccessToken = async (oauth_token, oauth_verifier) => {
   }
 };
 
-export const getTweets = async () => {
-  const tweets = await new Promise((resolve) => resolve(mockTweets));
+export const getTweets = async (
+  screen_name,
+  oauth_token,
+  oauth_token_secret
+) => {
+  const tweets = await fetch("/api/getTweets", {
+    headers: { screen_name, oauth_token, oauth_token_secret },
+  }).then((res) => res.json());
+  // const tweets = await new Promise((resolve) => resolve(mockTweets));
   return tweets;
 };

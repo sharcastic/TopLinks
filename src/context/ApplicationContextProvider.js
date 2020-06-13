@@ -17,13 +17,18 @@ const ApplicationContextProvider = ({ children }) => {
 
   useEffect(() => {
     const retrieveTweets = async () => {
-      const tweetsResponse = await getTweets();
+      const tweetsResponse = await getTweets(
+        userDetails.screen_name,
+        userDetails.oauth_token,
+        userDetails.oauth_token_secret
+      );
+      debugger;
       setTweets(tweetsResponse);
       setLoadingTweets(false);
     };
 
     retrieveTweets();
-  }, []);
+  }, [userDetails]);
   return (
     <ApplicationContext.Provider
       value={{ userDetails, setUserInfo, tweets, setTweets, loadingTweets }}

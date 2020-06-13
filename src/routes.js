@@ -11,9 +11,12 @@ import FilterByLocation from "./pages/FilterByLocation";
 import ReportsPage from "./pages/ReportsPage";
 
 const ProtectedRoute = ({ component: Component }) => {
-  const { userDetails } = useContext(ApplicationContext);
+  const { userDetails, loadingTweets } = useContext(ApplicationContext);
   if (!userDetails) {
     Navigate({ to: "/" });
+  }
+  if (loadingTweets) {
+    return <div>Loading Tweets!</div>;
   }
   return (
     <>
