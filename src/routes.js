@@ -48,7 +48,7 @@ const RoutesComponent = () => {
             element={<ProtectedRoute component={FilterByLocation} />}
           />
           <Route
-            path="/reports"
+            path="/report"
             element={<ProtectedRoute component={ReportsPage} />}
           />
         </Routes>

@@ -13,7 +13,6 @@ import "../styles/LandingPage.scss";
 const LandingPage = () => {
   const navigate = useNavigate();
   const { userDetails, setUserInfo } = useContext(ApplicationContext);
-  debugger;
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState("");
 

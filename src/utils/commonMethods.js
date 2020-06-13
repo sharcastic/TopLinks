@@ -117,3 +117,28 @@ export const mapTilerProvider = (x, y, z, dpr) => {
 
 export const getRandomCoordinates = (from = -180, to = 180, fixed = 3) =>
   (Math.random() * (to - from) + from).toFixed(fixed) * 1;
+
+export const generateReport = (tweets) => {
+  const arr = tweets
+    .filter(({ entities: { urls } }) => urls.length > 0)
+    .map(({ entities, user }) => ({
+      urls: entities.urls.map((i) => i.expanded_url),
+      user,
+    }));
+  const userReport = Array.from(
+    arr.reduce((map, { user: { screen_name } }) => {
+      map.set(screen_name, (map.get(screen_name) || 0) + 1);
+      return map;
+    }, new Map())
+  ).sort(([, val1], [, val2]) => val2 - val1);
+  const websiteReport = Array.from(
+    arr.reduce((map, { urls }) => {
+      urls.forEach((url) => {
+        const { host } = new URL(url);
+        map.set(host, (map.get(host) || 0) + 1);
+      });
+      return map;
+    }, new Map())
+  ).sort(([, val1], [, val2]) => val2 - val1);
+  return [userReport, websiteReport];
+};

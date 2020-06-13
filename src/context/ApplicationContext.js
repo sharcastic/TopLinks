@@ -6,6 +6,7 @@ const ApplicationContext = createContext({
   tweets: undefined,
   setTweets: undefined,
   loadingTweets: undefined,
+  report: undefined,
 });
 
 export default ApplicationContext;

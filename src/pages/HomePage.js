@@ -7,7 +7,14 @@ import "../styles/HomePage.scss";
 
 const HomePage = () => {
   const { tweets, loadingTweets } = useContext(ApplicationContext);
+  const [filteredTweets, setFilteredTweets] = useState([]);
 
+  useEffect(() => {
+    setFilteredTweets(
+      tweets.filter(({ entities: { urls } }) => urls.length > 0)
+    );
+  }, [tweets]);
+  console.log("filteredTweets", filteredTweets);
   return (
     <div className="home-page">
       <h2 className="home-title">Home Page!</h2>
@@ -15,7 +22,7 @@ const HomePage = () => {
         <CircularProgress />
       ) : (
         <div className="tweets-container">
-          {tweets.map((tweet) => (
+          {filteredTweets.map((tweet) => (
             <TweetComponent key={tweet.id} tweet={tweet} />
           ))}
         </div>

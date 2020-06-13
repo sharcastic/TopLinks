@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 
 import ApplicationContext from "./ApplicationContext";
 import { getTweets } from "../utils/network";
+import { generateReport } from "../utils/commonMethods";
 
 const ApplicationContextProvider = ({ children }) => {
   const [userDetails, setUserDetails] = useState(
     JSON.parse(sessionStorage.getItem("topLinkUserDetails"))
   );
   const [tweets, setTweets] = useState([]);
+  const [report, setReport] = useState([]);
   const [loadingTweets, setLoadingTweets] = useState(true);
 
   const setUserInfo = (data) => {
@@ -22,8 +24,8 @@ const ApplicationContextProvider = ({ children }) => {
         userDetails.oauth_token,
         userDetails.oauth_token_secret
       );
-      debugger;
       setTweets(tweetsResponse);
+      setReport(generateReport(tweetsResponse));
       setLoadingTweets(false);
     };
 
@@ -31,7 +33,14 @@ const ApplicationContextProvider = ({ children }) => {
   }, [userDetails]);
   return (
     <ApplicationContext.Provider
-      value={{ userDetails, setUserInfo, tweets, setTweets, loadingTweets }}
+      value={{
+        userDetails,
+        setUserInfo,
+        tweets,
+        setTweets,
+        loadingTweets,
+        report,
+      }}
     >
       {children}
     </ApplicationContext.Provider>

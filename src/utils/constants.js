@@ -13,7 +13,7 @@ export const navbarItems = [
   { title: "Home", link: "/Home" },
   { title: "Search Tweets By Hashtag", link: "/searchByHashtag" },
   { title: "Filter Tweets By Location", link: "/filterByLocation" },
-  { title: "View Reports", link: "/reports" },
+  { title: "View Report", link: "/report" },
 ];
 
 export const mockTweets = [
