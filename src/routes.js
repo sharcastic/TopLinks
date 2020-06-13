@@ -8,6 +8,7 @@ import HomePage from "./pages/HomePage";
 import Navbar from "./components/Navbar/Navbar";
 import HashtagPage from "./pages/HashtagPage";
 import FilterByLocation from "./pages/FilterByLocation";
+import ReportsPage from "./pages/ReportsPage";
 
 const ProtectedRoute = ({ component: Component }) => {
   const { userDetails } = useContext(ApplicationContext);
@@ -42,6 +43,10 @@ const RoutesComponent = () => {
           <Route
             path="/filterByLocation"
             element={<ProtectedRoute component={FilterByLocation} />}
+          />
+          <Route
+            path="/reports"
+            element={<ProtectedRoute component={ReportsPage} />}
           />
         </Routes>
       </Suspense>

@@ -1,6 +1,7 @@
 .filter-page {
   .filter-page-content {
     display: flex;
+    height: 700px;
     .map-container {
       width: 70%;
       .info {
@@ -15,6 +16,7 @@
     .filtered-tweets-container {
       width: 30%;
       padding-left: 30px;
+      overflow: auto;
       .filtered-tweets {
         .tweet-item {
           margin-top: 20px;

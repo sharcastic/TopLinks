@@ -132,17 +132,19 @@ const FilterByLocation = () => {
           </div>
         </div>
         <div className="filtered-tweets-container">
-          <div className="filtered-tweets-header">
-            Tweets from the visible part of the Map
-          </div>
-          <div className="filtered-tweets">
-            {filteredTweets.length > 0 ? (
-              filteredTweets.map((tweet) => (
-                <TweetComponent key={tweet.id} tweet={tweet} />
-              ))
-            ) : (
-              <div>No tweets in this region! </div>
-            )}
+          <div>
+            <div className="filtered-tweets-header">
+              Tweets from the visible part of the Map
+            </div>
+            <div className="filtered-tweets">
+              {filteredTweets.length > 0 ? (
+                filteredTweets.map((tweet) => (
+                  <TweetComponent key={tweet.id} tweet={tweet} />
+                ))
+              ) : (
+                <div>No tweets in this region! </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
