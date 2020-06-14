@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { BarChart } from "react-chartkick";
 
 import ApplicationContext from "../context/ApplicationContext";

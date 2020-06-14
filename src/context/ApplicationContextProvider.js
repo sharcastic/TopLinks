@@ -10,7 +10,7 @@ const ApplicationContextProvider = ({ children }) => {
   );
   const [tweets, setTweets] = useState([]);
   const [report, setReport] = useState([]);
-  const [loadingTweets, setLoadingTweets] = useState(true);
+  const [loadingTweets, setLoadingTweets] = useState(false);
   const [error, setError] = useState();
 
   const setUserInfo = (data) => {
@@ -19,6 +19,7 @@ const ApplicationContextProvider = ({ children }) => {
   };
 
   const retrieveTweets = useCallback(async () => {
+    setLoadingTweets(true);
     try {
       return getTweets(
         userDetails.screen_name,
@@ -46,7 +47,8 @@ const ApplicationContextProvider = ({ children }) => {
 
   useEffect(() => {
     retrieveTweets();
-  }, [retrieveTweets, userDetails]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userDetails]);
   return (
     <ApplicationContext.Provider
       value={{
