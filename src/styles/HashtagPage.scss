@@ -1,19 +1,36 @@
 .hashtag-page {
   display: flex;
+  height: 85vh;
 
   .hashtag-search {
     width: 50%;
+    padding-right: 20px;
+    box-sizing: border-box;
     margin-right: 20px;
+    overflow-y: auto;
     .hashtag-search-title {
+      margin: 0;
       margin-bottom: 20px;
+      text-align: center;
     }
   }
 
   .hashtag-tweets {
     margin: 0 20px;
     width: 50%;
+    overflow-y: auto;
+    padding-right: 20px;
+    box-sizing: border-box;
+    .hashtag-results-title {
+      margin: 0;
+      margin-bottom: 20px;
+      text-align: center;
+    }
     .result-tweets {
       margin-top: 20px;
+      .tweet-item {
+        margin-bottom: 20px;
+      }
     }
   }
 

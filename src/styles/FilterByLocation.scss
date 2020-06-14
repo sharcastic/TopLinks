@@ -1,7 +1,7 @@
 .filter-page {
   .filter-page-content {
     display: flex;
-    height: 700px;
+    height: 80vh;
     .map-container {
       width: 70%;
       .info {
@@ -17,9 +17,15 @@
       width: 30%;
       padding-left: 30px;
       overflow: auto;
+
+      .filtered-tweets-header {
+        text-align: center;
+        margin: 0;
+      }
       .filtered-tweets {
+        margin-top: 20px;
         .tweet-item {
-          margin-top: 20px;
+          margin-bottom: 20px;
         }
       }
     }

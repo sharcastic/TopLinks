@@ -12,16 +12,21 @@ const ReportsPage = () => {
   } = useContext(ApplicationContext);
   return (
     <div className="reports-page">
-      <div className="reports-title">Reports page</div>
+      <h2 className="reports-title">Reports page</h2>
       <div className="reports-container">
         <div className="reports-display">
-          <div className="reports-subtitle">Show Report here!</div>
           {userReport && websiteReport && (
             <>
               <div className="chart">
+                <h4 className="reports-subtitle">
+                  User sharing the most URLs in their tweets
+                </h4>
                 <BarChart data={userReport} />
               </div>
               <div className="chart">
+                <h4 className="reports-subtitle">
+                  Website URLs shared via Tweets
+                </h4>
                 <BarChart data={websiteReport} />
               </div>
             </>

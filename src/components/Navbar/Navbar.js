@@ -1,15 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { navbarItems } from "../../utils/constants";
+import ApplicationContext from "../../context/ApplicationContext";
 
 import "./Navbar.scss";
 
 const Navbar = () => {
+  const { signOut } = useContext(ApplicationContext);
   const navigate = useNavigate();
   const onNavItemClick = (event) => {
     const { sendto } = event.currentTarget.dataset;
     navigate(sendto);
+  };
+
+  const onSignOutClick = async () => {
+    await signOut();
+    navigate("/");
   };
 
   return (
@@ -26,7 +33,9 @@ const Navbar = () => {
           </li>
         ))}
       </ul>
-      <span className="signOut">Sign out!</span>
+      <span className="signOut" onClick={onSignOutClick}>
+        Sign out!
+      </span>
     </nav>
   );
 };

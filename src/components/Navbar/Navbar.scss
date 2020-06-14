@@ -10,9 +10,18 @@
     .nav-item {
       cursor: pointer;
       margin-right: 50px;
+      border-bottom: 2px solid white;
+      padding-bottom: 5px;
+      &:hover {
+        border-bottom: 2px solid black;
+      }
     }
   }
   .signOut {
     cursor: pointer;
+    border-bottom: 2px solid white;
+    &:hover {
+      border-bottom: 2px solid black;
+    }
   }
 }

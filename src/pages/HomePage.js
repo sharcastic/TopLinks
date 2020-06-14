@@ -6,18 +6,26 @@ import TweetComponent from "../components/TweetComponent/TweetComponent";
 import "../styles/HomePage.scss";
 
 const HomePage = () => {
-  const { tweets, loadingTweets } = useContext(ApplicationContext);
+  const { tweets, loadingTweets, retrieveTweets } = useContext(
+    ApplicationContext
+  );
   const [filteredTweets, setFilteredTweets] = useState([]);
+  const [retrieveLoading, setLoading] = useState(false);
+
+  const onReloadClick = async () => {
+    setLoading(true);
+    await retrieveTweets();
+    setLoading(false);
+  };
 
   useEffect(() => {
     setFilteredTweets(
       tweets.filter(({ entities: { urls } }) => urls.length > 0)
     );
   }, [tweets]);
-  console.log("filteredTweets", filteredTweets);
   return (
     <div className="home-page">
-      <h2 className="home-title">Home Page!</h2>
+      <h2 className="home-title">Tweets containing Links!</h2>
       {loadingTweets ? (
         <CircularProgress />
       ) : (
@@ -27,8 +35,17 @@ const HomePage = () => {
           ))}
         </div>
       )}
-      <Button className="reload-tweets" variant="contained" color="primary">
-        Reload Tweets
+      <Button
+        className="reload-tweets"
+        variant="contained"
+        color="primary"
+        onClick={onReloadClick}
+      >
+        {retrieveLoading ? (
+          <CircularProgress color="inherit" />
+        ) : (
+          <span>Reload Tweets</span>
+        )}
       </Button>
     </div>
   );

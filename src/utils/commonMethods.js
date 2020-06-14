@@ -69,15 +69,6 @@ const makeSignature = (params, link, consumer_secret, method = "POST") => {
     .substr(1);
 };
 
-const prepareParamsForOAuthRequest = () => ({
-  oauth_consumer_key: CONSUMER_KEY,
-  oauth_version: OAUTH_VERSION,
-  oauth_signature_method: SIGNATURE_METHOD,
-  oauth_callback: `${new URL(window.location).href}callback`,
-  oauth_timestamp: (Date.now() / 1000).toFixed(),
-  oauth_nonce: generateNonce(32),
-});
-
 const prepareParams = (tokenType, oauth_token = "", oauth_verifier = "") => ({
   oauth_consumer_key: CONSUMER_KEY,
   oauth_version: OAUTH_VERSION,

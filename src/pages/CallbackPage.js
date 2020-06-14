@@ -33,10 +33,11 @@ const CallbackPage = () => {
         height: "100%",
         justifyContent: "center",
         alignItems: "center",
+        flexDirection: "column",
       }}
     >
       <CircularProgress />
-      <div>Authenticating User!</div>
+      <div style={{ marginTop: "10px" }}>Authenticating User!</div>
     </div>
   );
 };

@@ -54,15 +54,17 @@ const HashtagPage = () => {
 
   useEffect(() => {
     setAllHashtags(
-      tweets
-        .reduce(
-          (acc, { entities: { hashtags } }) =>
-            hashtags.length > 0
-              ? [...acc, ...hashtags.map((i) => i.text)]
-              : acc,
-          []
+      Array.from(
+        new Set(
+          tweets.reduce(
+            (acc, { entities: { hashtags } }) =>
+              hashtags.length > 0
+                ? [...acc, ...hashtags.map((i) => i.text)]
+                : acc,
+            []
+          )
         )
-        .sort()
+      ).sort()
     );
   }, [tweets]);
 
@@ -73,50 +75,58 @@ const HashtagPage = () => {
   return (
     <div className="hashtag-page">
       <div className="hashtag-search">
-        <div className="hashtag-search-title">Search Hashtags</div>
-        <FormControl fullWidth variant="outlined">
-          <InputLabel htmlFor="outlined-adornment-amount">Hashtag</InputLabel>
-          <OutlinedInput
-            id="outlined-adornment-amount"
-            value={searchTerm}
-            onChange={handleChange}
-            startAdornment={<InputAdornment position="start">#</InputAdornment>}
-            labelWidth={60}
-          />
-        </FormControl>
-        <div className="search-subtitle">
-          {searchTerm ? "Matching Hashtags" : "All Hashtags"}
+        <div>
+          <h4 className="hashtag-search-title">Search Hashtags</h4>
+          <FormControl fullWidth variant="outlined">
+            <InputLabel htmlFor="outlined-adornment-amount">Hashtag</InputLabel>
+            <OutlinedInput
+              id="outlined-adornment-amount"
+              value={searchTerm}
+              onChange={handleChange}
+              startAdornment={
+                <InputAdornment position="start">#</InputAdornment>
+              }
+              labelWidth={60}
+            />
+          </FormControl>
+          <div className="search-subtitle">
+            {searchTerm ? "Matching Hashtags" : "All Hashtags"}
+          </div>
+          <ul className="hashtag-search-results">
+            {resultHashtags.length === 0 ? (
+              <div>No matching hashtags!</div>
+            ) : (
+              resultHashtags.map((i) => (
+                <li
+                  key={i}
+                  className="hashtag-item"
+                  onClick={onHashtagResultClick}
+                >
+                  #{i}
+                </li>
+              ))
+            )}
+          </ul>
         </div>
-        <ul className="hashtag-search-results">
-          {resultHashtags.length === 0 ? (
-            <div>No matching hashtags!</div>
-          ) : (
-            resultHashtags.map((i) => (
-              <li
-                key={i}
-                className="hashtag-item"
-                onClick={onHashtagResultClick}
-              >
-                #{i}
-              </li>
-            ))
-          )}
-        </ul>
       </div>
       {filteredTweets.length > 0 ? (
         <div className="hashtag-tweets">
-          <div className="hashtag-results-title">
-            Tweets containing {selectedHashtag}
-          </div>
-          <div className="result-tweets">
-            {filteredTweets.map((tweet) => (
-              <TweetComponent key={tweet.id} tweet={tweet} />
-            ))}
+          <div>
+            <h4 className="hashtag-results-title">
+              Tweets containing {selectedHashtag}
+            </h4>
+            <div className="result-tweets">
+              {filteredTweets.map((tweet) => (
+                <TweetComponent key={tweet.id} tweet={tweet} />
+              ))}
+            </div>
           </div>
         </div>
       ) : (
         <div className="hashtag-tweets">
-          <div>Select a hashtag to show tweets containing that hashtag!</div>
+          <h4 className="hashtag-results-title">
+            Select a hashtag to show tweets containing that hashtag!
+          </h4>
         </div>
       )}
     </div>

@@ -1,6 +1,16 @@
 .page-container {
   height: 100vh;
 
+  .loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    flex-direction: column-reverse;
+    span {
+      margin-top: 20px;
+    }
+  }
   .page-content {
     margin: 20px;
   }

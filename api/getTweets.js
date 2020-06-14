@@ -41,7 +41,7 @@ module.exports = async (req, res) => {
   const [tweets, db] = await Promise.all([
     client.get("statuses/home_timeline", {
       exclude_replies: true,
-      count: 20,
+      count: 200,
       tweet_mode: "extended",
     }),
     connectToDatabase(process.env.MONGODB_URI),

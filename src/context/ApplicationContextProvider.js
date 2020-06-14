@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import ApplicationContext from "./ApplicationContext";
 import { getTweets } from "../utils/network";
@@ -11,35 +11,53 @@ const ApplicationContextProvider = ({ children }) => {
   const [tweets, setTweets] = useState([]);
   const [report, setReport] = useState([]);
   const [loadingTweets, setLoadingTweets] = useState(true);
+  const [error, setError] = useState();
 
   const setUserInfo = (data) => {
     setUserDetails(data);
     sessionStorage.setItem("topLinkUserDetails", JSON.stringify(data));
   };
 
-  useEffect(() => {
-    const retrieveTweets = async () => {
-      const tweetsResponse = await getTweets(
+  const retrieveTweets = useCallback(async () => {
+    try {
+      return getTweets(
         userDetails.screen_name,
         userDetails.oauth_token,
         userDetails.oauth_token_secret
-      );
-      setTweets(tweetsResponse);
-      setReport(generateReport(tweetsResponse));
+      ).then((tweetsResponse) => {
+        setTweets(tweetsResponse);
+        setReport(generateReport(tweetsResponse));
+        setLoadingTweets(false);
+        setError();
+      });
+    } catch (err) {
+      console.log(err);
+      setError("Error occurred while loading Tweets! Try again later!");
       setLoadingTweets(false);
-    };
-
-    retrieveTweets();
+    }
   }, [userDetails]);
+
+  const signOut = () =>
+    new Promise((resolve) => {
+      sessionStorage.removeItem("topLinkUserDetails");
+      setUserDetails();
+      resolve();
+    });
+
+  useEffect(() => {
+    retrieveTweets();
+  }, [retrieveTweets, userDetails]);
   return (
     <ApplicationContext.Provider
       value={{
         userDetails,
         setUserInfo,
         tweets,
-        setTweets,
+        retrieveTweets,
         loadingTweets,
         report,
+        error,
+        signOut,
       }}
     >
       {children}

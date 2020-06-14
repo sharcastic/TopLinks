@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Button, CircularProgress } from "@material-ui/core";
 import { useNavigate } from "react-router-dom";
 
@@ -15,6 +15,13 @@ const LandingPage = () => {
   const { userDetails, setUserInfo } = useContext(ApplicationContext);
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState("");
+
+  useEffect(() => {
+    if (userDetails) {
+      navigate("/Home");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userDetails]);
 
   const onPopupClosed = () => {
     setLoading(false);
@@ -37,8 +44,8 @@ const LandingPage = () => {
           observeWindow(popup, onPopupClosed);
           window.onmessage = async ({ data: { type, data } }) => {
             if (type === "authenticated") {
-              console.log(data);
               setUserInfo(data);
+              navigate("/Home");
             }
           };
         }
@@ -70,7 +77,7 @@ const LandingPage = () => {
           </>
         )}
       </Button>
-      <div>{status}</div>
+      <div className="status">{status}</div>
     </div>
   );
 };

@@ -4,7 +4,7 @@ import Marker from "pigeon-marker";
 import { Button } from "@material-ui/core";
 
 import ApplicationContext from "../context/ApplicationContext";
-import { getRandomCoordinates } from "../utils/commonMethods";
+import { getRandomCoordinates, mapTilerProvider } from "../utils/commonMethods";
 import TweetComponent from "../components/TweetComponent/TweetComponent";
 
 import "../styles/FilterByLocation.scss";
@@ -18,10 +18,6 @@ const FilterByLocation = () => {
   const [filteredTweets, setFilteredTweets] = useState(localTweets);
 
   const handleBoundsChange = ({ center, zoom, bounds, initial }) => {
-    console.log("New bounds", bounds);
-    if (initial) {
-      console.log("Got initial bounds: ", bounds);
-    }
     setZoom(zoom);
     setCenter(center);
     setBounds(bounds);
@@ -70,35 +66,18 @@ const FilterByLocation = () => {
           return false;
         })
       );
-      /* const arr = localTweets.filter(({ coordinates }) => {
-        if (!coordinates) {
-          return false;
-        }
-        const [lat, long] = coordinates.coordinates;
-        if (lat > south && lat < north && long > west && long < east) {
-          return true;
-        }
-        return false;
-      });
-      console.log(
-        arr.map(({ id, coordinates }) => ({
-          id,
-          coordinates,
-        }))
-      ); */
     }
   }, [bounds, localTweets]);
 
   return (
     <div className="filter-page">
-      <div className="page-header">Filter by Location</div>
       <div className="filter-page-content">
         <div className="map-container">
           <Map
             center={center}
             zoom={zoom}
             limitBounds="edge"
-            // provider={mapTilerProvider}
+            provider={mapTilerProvider}
             mouseEvents={true}
             animate={true}
             onBoundsChanged={handleBoundsChange}
@@ -133,9 +112,7 @@ const FilterByLocation = () => {
         </div>
         <div className="filtered-tweets-container">
           <div>
-            <div className="filtered-tweets-header">
-              Tweets from the visible part of the Map
-            </div>
+            <h3 className="filtered-tweets-header">Filtered Tweets</h3>
             <div className="filtered-tweets">
               {filteredTweets.length > 0 ? (
                 filteredTweets.map((tweet) => (

@@ -6,6 +6,10 @@
   display: flex;
   flex-direction: column;
 
+  .status {
+    margin-top: 10px;
+  }
+
   .title {
     font-weight: bolder;
   }

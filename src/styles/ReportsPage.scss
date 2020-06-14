@@ -1,6 +1,14 @@
 .reports-page {
+  .reports-title {
+    text-align: center;
+  }
+  .reports-subtitle {
+    margin: 20px 0;
+    text-align: center;
+  }
   .reports-container {
     display: flex;
+    justify-content: center;
     .reports-selector {
       width: 40%;
       .reports-list {

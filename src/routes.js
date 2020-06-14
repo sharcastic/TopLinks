@@ -9,6 +9,7 @@ import Navbar from "./components/Navbar/Navbar";
 import HashtagPage from "./pages/HashtagPage";
 import FilterByLocation from "./pages/FilterByLocation";
 import ReportsPage from "./pages/ReportsPage";
+import { CircularProgress } from "@material-ui/core";
 
 const ProtectedRoute = ({ component: Component }) => {
   const { userDetails, loadingTweets } = useContext(ApplicationContext);
@@ -16,7 +17,12 @@ const ProtectedRoute = ({ component: Component }) => {
     Navigate({ to: "/" });
   }
   if (loadingTweets) {
-    return <div>Loading Tweets!</div>;
+    return (
+      <div className="loader">
+        <span>Loading Tweets!</span>
+        <CircularProgress />
+      </div>
+    );
   }
   return (
     <>
